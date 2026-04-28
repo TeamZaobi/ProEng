@@ -67,6 +67,19 @@
 2. 让 `ProductEngineer` 在允许范围内产出 `PRD`、计划、架构说明、重构方案等项目资产内容。
 3. 让 `files-driven` 在产出之后判断这些资产是否越权、是否需要注册、是否该进入后续 workflow 或 audit。
 
+## 结构化控制面的反向协作请求
+
+当 `ProductEngineer` 发现下游项目需要把需求链路追踪到开发、测试、证据和交付时，不自行发明 metadata、JSON schema、状态机、traceability index 或 validator。
+
+此时它只能向 `files-driven` 提出 `files-driven collaboration request`，说明：
+
+1. 需要哪类控制面：`metadata_profile / traceability_index / validator / downstream_adapter`。
+2. 产品内容侧建议追踪哪些字段：例如 request id、architecture coupling verdict、dependency graph、acceptance signals、handoff surfaces 和 evidence needs。
+3. 当前项目是否已有 intake / handoff profile；没有时是否需要先由 `files-driven` 建立最小 profile。
+4. 缺少控制面时，产物应停在候选需求、PRD patch 还是不能继续 handoff。
+
+`files-driven` 决定这些字段是否进入项目控制面，并负责 schema、状态词表、validator、写权、注册位置和失败时的 stop gate。
+
 ## 推荐定义
 
 > `ProductEngineer` 面向下游项目的产品与工程设计工作，负责把边界明确的问题压成 PRD、计划、架构说明、验收标准和重构方案；它不判定治理真源、不改写项目级写权规则、不替代 files-driven 做 scope、route、contract 和 governance audit 判断。
