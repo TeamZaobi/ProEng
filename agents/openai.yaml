@@ -1,4 +1,4 @@
 interface:
   display_name: "ProductEngineer / 善工"
-  short_description: "用低噪声追问把产品问题压成项目资产，不做治理裁决"
-  default_prompt: "使用 $product-engineer 用低噪声的苏格拉底式提问澄清目标、约束和 done line，再把这个功能或版本问题压成 PRD、计划、架构说明、重构建议或需求审计。遇到真源或写权冲突时不做默认裁决；`plan` 缺少 PRD 时先停下索取 PRD；`refactor` 未说明方案还是实施时先分流。"
+  short_description: "提升 PM 判断并稳定产出需求、PRD、计划和架构文档，不做治理裁决"
+  default_prompt: "使用 $product-engineer 先像资深产品经理一样澄清目标、证据、约束、取舍和 done line，再把问题稳定表达成更好的需求分析、需求文档、PRD、计划、架构说明、重构建议或需求审计。PRD 不是模板填空，要先压实人性根因、痛点识别、需求覆盖、产品定义、组件拓扑和用户故事，并说明使用者获得的熵减；默认优先给高质量第一稿；对显式需求或 PRD 请求，如果目标、角色、关键场景和路径已给出，就直接起稿，只在会实质改变文档结构时才少量追问；遇到真源或写权冲突时不做默认裁决；`plan` 缺少 PRD 时先停下索取 PRD；`refactor` 未说明方案还是实施时先分流。"
