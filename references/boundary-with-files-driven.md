@@ -9,6 +9,8 @@
 
 - 把 `ProductEngineer` 放在 `project_scope`，作为下游项目里的业务能力或叶子 skill。
 - 让 `files-driven` 继续站在 `capability_scope`，负责判路、定真源、控写权、做恢复和审计。
+- 当产品本身是 Agent-Native 对象，`ProductEngineer` 仍负责产品语义：谁用、替谁降熵、上下文如何被获取和恢复、Agent Architecture / Skills / Rules / Gates 如何构成完整能力、agent 稳定能做什么、状态和证据怎么被用户理解、handoff / recovery 如何成为产品体验。
+- 同一场景下，`files-driven` 仍负责治理控制：真源、写权、schema、validator、route contract、projection、runtime / adoption audit 和 release gate。
 
 ## 适合放进 ProductEngineer 的能力
 
@@ -49,6 +51,11 @@
 - `ProductEngineer`：产品和系统方案，服务边界、模块边界、页面和信息架构。
 - `files-driven`：repo、starter、control-plane、contract、route、harness 的治理架构。
 
+### `agent-native`
+
+- `ProductEngineer`：Agent-Native 产品定义、actor map、context spine、construction stack、agentic loop、能力边界、状态和证据对象、handoff / recovery 作为用户价值、agent-side user story、可感知 done line。
+- `files-driven`：AI-Native 项目治理、scope 判定、入口真源、写权边界、工具投影、contract / schema / validator、runtime audit、pack audit、adoption audit。
+
 ### `refactor`
 
 - `ProductEngineer`：代码和产品结构重构。
@@ -60,6 +67,8 @@
 
 - 如果核心问题是“这个产品该做什么、用户怎么用、怎样才算交付完成”，走 `ProductEngineer`。
 - 如果核心问题是“哪份文件算数、谁有写权、这次该先停在哪个 gate、怎么避免漂移”，走 `files-driven`。
+- 如果核心问题是“这个 agent / skill / workflow 到底应该替人和下游 agent 稳定完成什么闭环”，走 `ProductEngineer`。
+- 如果核心问题是“这个 agent / skill / workflow 的真源、入口、投影、validator 或运行 gate 怎么稳住”，走 `files-driven`。
 
 ## 协作顺序
 
@@ -70,6 +79,18 @@
 ## 结构化控制面的反向协作请求
 
 当 `ProductEngineer` 发现下游项目需要把需求链路追踪到开发、测试、证据和交付时，不自行发明 metadata、JSON schema、状态机、traceability index 或 validator。
+
+当 Agent-Native 产品需要状态、证据、回执、handoff 或 recovery 成为长期可恢复对象时，也按同一规则处理：
+`ProductEngineer` 只说明产品为什么需要这些对象、用户如何感知它们、最小字段应覆盖哪些产品语义；
+`files-driven` 决定它们是否进入项目控制面，以及如何落成真源、schema、validator、注册和 gate。
+
+当 Agent-Native 产品需要把上下文变成可恢复对象时，也同样处理：
+`ProductEngineer` 说明 context spine 的产品语义和最小字段，例如 context source、trust level、compression note、exclusion reason、state binding、evidence binding 和 recovery focus；
+`files-driven` 决定这些字段是否进入正式控制面。
+
+当 Agent-Native 产品需要定义 `Agent Architecture + Skills + Rules + Gates` 时：
+`ProductEngineer` 说明这四层为什么是完整产品构建方式，以及它们如何服务使用者熵减和交付质量；
+`files-driven` 负责判定 rules / gate / validator / projection / runtime audit 的真源、写权、注册和执行生效方式。
 
 此时它只能向 `files-driven` 提出 `files-driven collaboration request`，说明：
 

@@ -94,7 +94,10 @@
 6. 为每个用户故事分配唯一 ID，例如 `US-001`。
 7. 把验收标准写到可测试，并能回指问题、范围和 done line。
 8. 产品涉及认证或访问控制时，至少覆盖一条安全访问或身份验证故事。
-9. 如果用户已经给出产品目标、角色或用户、关键场景和输出路径，默认直接起稿，不先提澄清问题。
+9. 如果对象是 Agent-Native 产品，先补 `actor map -> context spine -> construction stack -> agentic loop -> capability surface -> state/evidence -> handoff/recovery -> done line`，再写功能需求。
+10. Agent-Native PRD 至少覆盖一条人类使用者故事、一条执行 agent 故事、一条接手或复核故事；故事必须能回指上下文、状态、证据、限制、下一步和停止条件。
+11. Agent-Native PRD 必须说明 `Agent Architecture + Skills + Rules + Gates` 如何共同构成产品能力：宿主调度架构承载什么，skills 如何被调度，rules 如何约束角色和调度，gates 如何保证交付质量。
+12. 如果用户已经给出产品目标、角色或用户、关键场景和输出路径，默认直接起稿，不先提澄清问题。
 
 推荐脚手架：
 
@@ -108,6 +111,9 @@
 - 除非关键信息缺失，否则不要在 `prd` 模式下连环追问。
 - 业务规则、字段细节或版本小取舍不全时，优先写成假设，不把显式 `PRD` 请求拖成长访谈。
 - 不用固定章节顺序掩盖生成链断裂；`人性根因 -> 痛点识别 -> 需求覆盖 -> 产品定义 -> 组件拓扑 -> 用户故事` 不成立时先标假设或补问。
+- Agent-Native 场景下，不把 runtime、工具入口、仓库路径、命令或 UI shell 当作产品定义；它们只能作为承载面或产品约束出现。
+- Agent-Native 场景下，不把上下文当作一次性 prompt 背景；必须写成可恢复、可接手、可复核的产品对象或产品约束。
+- Agent-Native 场景下，不把 skills、rules 或 gates 当成分散文档；它们必须回到宿主调度机制和交付质量线。
 
 ### 文档质量门槛
 
@@ -201,6 +207,14 @@
    - 日志和监控
    - 风险和缓解
 6. 明确技术成功标准。
+7. 如果对象是 Agent-Native 产品，架构说明必须拆开：
+   - 能力承诺和不可做事项
+   - human / agent / downstream agent 的交互边界
+   - context spine：上下文来源、可信度、压缩、边界、失效条件和恢复入口
+   - construction stack：Agent Architecture、Skills、Rules、Gates 的分工和咬合关系
+   - intent、route、context、action、evidence、state、handoff 和 recovery 的流转
+   - host runtime / CLI / MCP / tool adapter 作为承载面时的边界
+   - 哪些控制面需求需要移交 `files-driven` 或工程 owner
 
 ### 评审启发式
 
@@ -208,6 +222,7 @@
 - 先识别需求的内在逻辑关联，再切模块。
 - 预判未来演进，但不要为了“以后可能会有”而过度设计。
 - 评估桥接代码复杂度，优先松耦合接口。
+- Agent-Native 产品优先评估“任务闭环是否可恢复、可接手、可复核”，不要只比较技术栈或工具品牌。
 - 这里最适合使用 `G2`，但仍要把问题压在关键分歧上，不做无限发散。
 
 ### 文档质量门槛
@@ -269,6 +284,7 @@
 - `PRD` 与实现是否一致
 - 版本范围是否漂移
 - 验收标准是否可执行
+- Agent-Native 产品是否说清 actor map、context spine、construction stack、agentic loop、能力边界、状态证据、handoff / recovery 和停止条件
 
 ### 安全与运行覆盖视角
 
@@ -288,6 +304,7 @@
 - 不把覆盖审计伪装成代码漏洞扫描。
 - 真正需要 exploit 级漏洞审计时，改走安全工程或代码审计能力。
 - 发现真源冲突、写权冲突或文件排序争议时，停止给默认裁决，转交 `files-driven`。
+- 发现 drift 根因是产品语义缺失时，可以输出 ProductEngineer 侧修正建议；发现 drift 根因是控制面失稳时，转成 `files-driven collaboration request`。
 
 ### 文档质量门槛
 
